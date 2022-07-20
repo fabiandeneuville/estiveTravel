@@ -304,6 +304,7 @@ input[type=checkbox]{
 }
 
 .send-form-btn {
+    z-index: -1;
     font-size: 35px;
     opacity: 0.4;
     color: rgb(241, 233, 212);
@@ -311,6 +312,7 @@ input[type=checkbox]{
 }
 
 .show-send-form-btn {
+    z-index: 5;
     opacity: 1;
     cursor: pointer;
     color: rgb(0,250,154);
