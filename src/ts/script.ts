@@ -13,7 +13,7 @@ let phoneIsValide : boolean = false;
 const nameRegexp : RegExp = /^[a-zéèôöîïûùü' -]{2,50}$/gi;
 const firstNameRegexp : RegExp = /^[a-zéèôöîïûùü' -]{2,50}$/gi;
 const emailRegexp : RegExp = /^[a-z0-9.-_]+[@]{1}[a-z0-9.-_]+[.]{1}[a-z]{2,10}$/gi;
-const phoneRegexp : RegExp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/;
+const phoneRegexp : RegExp = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
 
 /******************** DOM ELEMENTS SELECTION *********************/
 
@@ -38,6 +38,7 @@ const confirmation = document.querySelector('.confirmation') as HTMLDivElement;
 const nameInput = document.querySelector('#name') as HTMLInputElement;
 const emailInput = document.querySelector('#email') as HTMLInputElement;
 const phoneInput = document.querySelector('#phone') as HTMLInputElement;
+const numberInput : HTMLInputElement[] = Array.from(document.querySelectorAll('.number-input') as NodeListOf<HTMLInputElement>)
 
 // ERROR MESSAGES
 const nameError = document.querySelector('.name-error-message') as HTMLParagraphElement;
@@ -122,6 +123,18 @@ function displayForm() : void {
 };
 
 /********** FORM INPUTS VALIDATION **********/
+
+numberInput.forEach((input : HTMLInputElement) => {
+    input.addEventListener('change', () => {
+        let value : number = parseInt(input.value);
+        if(value < 0){
+            input.value = "0"
+            input.style.border = "2px solid crimson";
+        } else {
+            input.style.border = "2px solid rgb(116,191,229)";
+        }
+    })
+})
 
 nameInput.addEventListener('input', () => {
     if(nameRegexp.test(nameInput.value)){

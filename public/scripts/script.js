@@ -9,7 +9,7 @@ let phoneIsValide = false;
 const nameRegexp = /^[a-zéèôöîïûùü' -]{2,50}$/gi;
 const firstNameRegexp = /^[a-zéèôöîïûùü' -]{2,50}$/gi;
 const emailRegexp = /^[a-z0-9.-_]+[@]{1}[a-z0-9.-_]+[.]{1}[a-z]{2,10}$/gi;
-const phoneRegexp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/;
+const phoneRegexp = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
 /******************** DOM ELEMENTS SELECTION *********************/
 /********** WELCOME MESSAGE **********/
 const welcomeMessage = document.querySelector('.welcome-message');
@@ -25,6 +25,7 @@ const confirmation = document.querySelector('.confirmation');
 const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
 const phoneInput = document.querySelector('#phone');
+const numberInput = Array.from(document.querySelectorAll('.number-input'));
 // ERROR MESSAGES
 const nameError = document.querySelector('.name-error-message');
 const emailError = document.querySelector('.email-error-message');
@@ -96,6 +97,18 @@ function displayForm() {
 }
 ;
 /********** FORM INPUTS VALIDATION **********/
+numberInput.forEach((input) => {
+    input.addEventListener('change', () => {
+        let value = parseInt(input.value);
+        if (value < 0) {
+            input.value = "0";
+            input.style.border = "2px solid crimson";
+        }
+        else {
+            input.style.border = "2px solid rgb(116,191,229)";
+        }
+    });
+});
 nameInput.addEventListener('input', () => {
     if (nameRegexp.test(nameInput.value)) {
         nameError.innerText = "";
